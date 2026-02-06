@@ -19,18 +19,18 @@ services:
       retries: 10
     restart: unless-stopped
 
-  services:
-    api:
-      build: ../apps/api
-      container_name: dashboard-api
-      env_file:
-        - .env
-      ports:
-        - "8000:8000"
-      depends_on:
-        db:
-          condition: service_healthy
-      restart: unless-stopped
+    services:
+      api:
+        build: ../apps/api
+        container_name: dashboard-api
+        env_file:
+          - .env
+        ports:
+          - "8000:8000"
+        depends_on:
+          db:
+            condition: service_healthy
+        restart: unless-stopped
 
 
   collector:
