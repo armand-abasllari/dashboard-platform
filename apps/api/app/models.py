@@ -1,6 +1,7 @@
 from datetime import datetime
 from sqlalchemy import String, DateTime, Boolean, Integer, Text
 from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.dialects.postgresql import JSONB
 
 from .db import Base
 
@@ -26,3 +27,13 @@ class SyncRun(Base):
 
     items_fetched: Mapped[int] = mapped_column(Integer, default=0)
     items_written: Mapped[int] = mapped_column(Integer, default=0)
+
+
+class Snapshot(Base):
+    __tablename__ = "snapshots"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    service: Mapped[str] = mapped_column(String(50), nullable=False)
+    metric: Mapped[str] = mapped_column(String(50), nullable=False)
+    payload: Mapped[dict] = mapped_column(JSONB, nullable=False)
+    collected_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
