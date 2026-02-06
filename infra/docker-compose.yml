@@ -36,9 +36,8 @@ services:
   collector:
     build: ../apps/collector
     container_name: dashboard-collector
- 
+    command: ["python", "-c", "import time; print('Collector idle'); time.sleep(10**9)"]
     restart: unless-stopped
-  command: ["python", "-c", "import time; print('Collector idle'); time.sleep(10**9)"]
 
 volumes:
   dashboard_db:
